@@ -1,0 +1,2034 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Eduardo Alcalá García — QA Automation Engineer. Python · Playwright · Selenium · API Testing. Remote LATAM." />
+  <meta property="og:title" content="Eduardo Alcalá — QA Automation Engineer" />
+  <meta property="og:description" content="I build systems that catch what others miss." />
+  <title>Eduardo Alcalá — QA Engineer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" crossorigin="anonymous" />
+
+<style>
+/* ─── DESIGN TOKENS ─── */
+:root {
+  /* Fondos – gradiente lavanda suave */
+  --bg:        #F3EFF8;
+  --bg-alt:    #EDE8F5;
+  --bg-card:   rgba(255,255,255,0.72);
+  --bg-glass:  rgba(255,255,255,0.55);
+  --bg-glass2: rgba(255,255,255,0.35);
+
+  /* Tinta — contraste reforzado */
+  --ink:       #110E1C;
+  --ink-2:     #2C2545;
+  --ink-3:     #5E5680;
+
+  /* Acento violeta/lila */
+  --accent:    #7C3AED;
+  --accent-2:  #6D28D9;
+  --accent-3:  #A78BFA;
+  --accent-bg: rgba(124,58,237,0.07);
+  --accent-bg2:rgba(124,58,237,0.14);
+
+  /* Gradientes */
+  --grad-hero: linear-gradient(135deg, #EDE8F5 0%, #F8F4FF 40%, #EDF5F0 100%);
+  --grad-accent: linear-gradient(135deg, #7C3AED, #A78BFA);
+  --grad-glass: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.2));
+
+  /* Verde */
+  --green:     #059669;
+  --green-bg:  rgba(5,150,105,0.08);
+
+  /* Bordes glassmorphism */
+  --border:    rgba(124,58,237,0.1);
+  --border-2:  rgba(124,58,237,0.18);
+  --border-glass: rgba(255,255,255,0.5);
+
+  /* Sombras suaves */
+  --shadow:    0 2px 12px rgba(124,58,237,0.08), 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-lg: 0 8px 40px rgba(124,58,237,0.14), 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-glass: 0 8px 32px rgba(124,58,237,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
+
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  'Urbanist', -apple-system, sans-serif;
+  --mono:  'JetBrains Mono', monospace;
+
+  --nav-h: 68px;
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --blur: blur(18px) saturate(160%);
+  --blur-sm: blur(10px) saturate(140%);
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; -webkit-font-smoothing: antialiased; }
+body {
+  background: var(--grad-hero);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+/* Gradiente de fondo fijo en toda la página */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%,  rgba(167,139,250,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 60% at 80% 90%,  rgba(167,139,250,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 60% 40%,  rgba(209,250,229,0.12) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+
+/* ─── CURSOR ─── */
+a, button, .project-card, .project-featured, .skill-card, .clink, .cert-card,
+.project-link, .btn-primary, .btn-outline, .btn-nav-cv, .lang-btn, .form-submit {
+  cursor: pointer;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--accent-3); border-radius: 2px; }
+
+/* ─── PROGRESS BAR ─── */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: var(--grad-accent);
+  z-index: 200;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(20px, 5vw, 80px);
+  background: rgba(243,239,248,0.75);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border-bottom: 1px solid var(--border-glass);
+  transition: background 0.4s, box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 4px 24px rgba(124,58,237,0.08); }
+.nav-logo {
+  font-family: var(--sans);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.03em;
+}
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1.5px;
+  background: var(--accent);
+  transition: width 0.3s var(--ease-expo);
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+.nav-links a.active { color: var(--accent); }
+.lang-btn {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  padding: 5px 13px;
+  border: 1px solid var(--border-2);
+  border-radius: 100px;
+  background: var(--bg-glass);
+  backdrop-filter: var(--blur-sm);
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: all 0.25s;
+  letter-spacing: 0.06em;
+}
+.lang-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+.btn-nav-cv {
+  padding: 8px 22px;
+  background: var(--grad-accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 100px;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  transition: opacity 0.25s, transform 0.2s;
+  box-shadow: 0 2px 16px rgba(124,58,237,0.45);
+}
+.btn-nav-cv:hover { opacity: 0.88; transform: translateY(-1px); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: all 0.3s; }
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4.5px, 4.5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4.5px, -4.5px); }
+
+/* ─── MOBILE NAV ─── */
+.mobile-nav {
+  position: fixed; inset: 0;
+  background: rgba(243,239,248,0.92);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  z-index: 99;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  gap: 36px;
+  transform: translateY(-100%);
+  transition: transform 0.5s var(--ease-expo);
+}
+.mobile-nav.open { transform: translateY(0); }
+.mobile-nav a {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ink);
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.4s, transform 0.4s var(--ease-expo), color 0.2s;
+}
+.mobile-nav.open a { opacity: 1; transform: translateY(0); }
+.mobile-nav.open a:nth-child(1){transition-delay:0.08s;}
+.mobile-nav.open a:nth-child(2){transition-delay:0.13s;}
+.mobile-nav.open a:nth-child(3){transition-delay:0.18s;}
+.mobile-nav.open a:nth-child(4){transition-delay:0.23s;}
+.mobile-nav a:hover { color: var(--accent); }
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  padding-top: var(--nav-h);
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  position: relative;
+}
+/* Partículas — cubre toda la página */
+#hero-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+.hero-left {
+  padding: clamp(60px,8vw,120px) clamp(20px,5vw,80px);
+  position: relative; z-index: 2;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px;
+}
+.hero-eyebrow-line { width: 36px; height: 1.5px; background: var(--accent); }
+.hero-eyebrow-text {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.hero-name {
+  font-family: var(--sans);
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.hero-name em {
+  font-style: italic;
+  font-family: var(--serif);
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-role-row {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 28px; flex-wrap: wrap;
+}
+.hero-role {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-style: italic;
+  color: var(--ink-2);
+}
+.hero-badge {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  padding: 4px 12px;
+  background: rgba(5,150,105,0.1);
+  color: var(--green);
+  border: 1px solid rgba(5,150,105,0.2);
+  border-radius: 100px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  backdrop-filter: blur(6px);
+}
+/* punto parpadeante */
+.hero-badge::before {
+  content: '●';
+  margin-right: 5px;
+  animation: blink 1.8s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+.hero-tagline {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--ink-2);
+  line-height: 1.75;
+  max-width: 480px;
+  margin-bottom: 40px;
+}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 52px; }
+.btn-primary {
+  padding: 13px 30px;
+  background: var(--grad-accent);
+  color: #fff;
+  border: none; border-radius: 100px;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.2s var(--ease-back), box-shadow 0.25s;
+  display: inline-flex; align-items: center; gap: 9px;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.25);
+}
+.btn-primary:hover { opacity: 0.88; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.35); }
+.btn-outline {
+  padding: 12px 30px;
+  background: var(--bg-glass);
+  backdrop-filter: var(--blur-sm);
+  -webkit-backdrop-filter: var(--blur-sm);
+  color: var(--ink-2);
+  border: 1px solid var(--border-glass);
+  border-radius: 100px;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: inline-flex; align-items: center; gap: 9px;
+}
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); transform: translateY(-1px); }
+.hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+.stat-num {
+  font-family: var(--sans);
+  font-size: 2.4rem;
+  font-weight: 800;
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  display: block;
+}
+.stat-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-top: 4px;
+  display: block;
+}
+.stat-context {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  opacity: 0.7;
+  margin-top: 2px;
+  display: block;
+}
+
+/* Hero derecho */
+.hero-right {
+  height: 100%;
+  min-height: calc(100vh - var(--nav-h));
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 2;
+  padding: 40px 40px 40px 0;
+}
+.hero-photo-outer {
+  position: relative;
+  width: clamp(240px, 26vw, 360px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.hero-photo-frame {
+  width: 100%;
+  aspect-ratio: 3/4;
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+  /* Difumina la foto hacia los bordes para que se integre con el fondo */
+  -webkit-mask-image:
+    radial-gradient(ellipse 90% 85% at 50% 40%, black 50%, transparent 100%);
+  mask-image:
+    radial-gradient(ellipse 90% 85% at 50% 40%, black 50%, transparent 100%);
+}
+.hero-photo-frame img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top center;
+  transition: transform 0.7s var(--ease-expo);
+  display: block;
+}
+.hero-photo-frame:hover img { transform: scale(1.04); }
+
+/* Tarjetas debajo de la foto, una al lado de la otra */
+.hero-photo-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+}
+.hero-float-card {
+  background: var(--bg-glass);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border: 1px solid var(--border-glass);
+  border-radius: 14px;
+  padding: 11px 12px;
+  box-shadow: var(--shadow-glass);
+  display: flex; align-items: center; gap: 9px;
+  min-width: 0;
+}
+/* tercera tarjeta ocupa las 2 columnas */
+.hero-float-card:last-child {
+  grid-column: 1 / -1;
+}
+.float-icon {
+  width: 34px; height: 34px;
+  background: var(--grad-accent);
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+.float-text {}
+.float-num {
+  font-family: var(--sans);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1;
+}
+.float-label {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-top: 2px;
+}
+.float-context {
+  font-family: var(--mono);
+  font-size: 0.48rem;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  opacity: 0.7;
+  margin-top: 1px;
+  display: block;
+  white-space: nowrap;
+}
+/* Etiqueta QA Remote — ahora como chip pequeño al lado */
+.hero-tag {
+  flex: 0 0 auto;
+  background: var(--grad-accent);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  padding: 12px 14px;
+  border-radius: 14px;
+  writing-mode: vertical-rl;
+  text-transform: uppercase;
+  box-shadow: 0 4px 16px rgba(124,58,237,0.3);
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* scroll hint */
+.hero-scroll {
+  position: absolute;
+  bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center;
+  gap: 8px;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  animation: fadeBob 2.5s ease-in-out infinite;
+  z-index: 2;
+}
+.hero-scroll::after {
+  content: '';
+  width: 1px; height: 38px;
+  background: linear-gradient(to bottom, var(--ink-3), transparent);
+}
+@keyframes fadeBob {
+  0%,100%{opacity:.35;transform:translateX(-50%) translateY(0);}
+  50%{opacity:.7;transform:translateX(-50%) translateY(5px);}
+}
+
+/* ─── TOOLS STRIP ─── */
+.tools-strip {
+  background: var(--bg-glass);
+  backdrop-filter: var(--blur-sm);
+  -webkit-backdrop-filter: var(--blur-sm);
+  border-top: 1px solid var(--border-glass);
+  border-bottom: 1px solid var(--border-glass);
+  padding: 18px 0;
+  overflow: hidden;
+  position: relative;
+}
+.tools-strip::before,
+.tools-strip::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.tools-strip::before { left: 0; background: linear-gradient(to right, rgba(243,239,248,0.8), transparent); }
+.tools-strip::after  { right: 0; background: linear-gradient(to left, rgba(243,239,248,0.8), transparent); }
+.tools-track {
+  display: flex; gap: 0; align-items: center;
+  animation: marquee 28s linear infinite;
+  width: max-content;
+  will-change: transform;
+}
+.tool-item {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 0 32px;
+  white-space: nowrap;
+  opacity: 0.55;
+  transition: opacity 0.2s;
+}
+.tool-item:hover { opacity: 1; }
+.tool-item i {
+  font-size: 1.6rem;
+  color: var(--ink-3);
+  transition: color 0.2s;
+}
+.tool-item:hover i { color: var(--accent); }
+.tool-name {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.tool-item:hover .tool-name { color: var(--accent); }
+/* Colores específicos para íconos FA que reemplazan devicons */
+.tool-pw      { color: #2ECC71 !important; }
+.tool-pytest  { color: #0A9EDC !important; }
+.tool-postman { color: #FF6C37 !important; }
+.tool-linux   { color: #FCC624 !important; }
+/* Separador decorativo entre items */
+.tool-item + .tool-item::before {
+  content: '·';
+  position: absolute;
+  color: var(--border-2);
+  margin-left: -18px;
+  font-size: 1rem;
+  opacity: 0.4;
+}
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── SECTION BASE ─── */
+section { padding: clamp(72px,9vw,130px) clamp(20px,5vw,80px); position: relative; }
+.section-header {
+  display: flex; align-items: flex-start;
+  gap: clamp(20px, 3vw, 52px);
+  margin-bottom: clamp(40px,5vw,72px);
+}
+.section-num {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  padding-top: 10px;
+  min-width: 30px;
+  opacity: 0.7;
+}
+.section-title-group { flex: 1; }
+.section-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 8px;
+  display: block;
+}
+.section-title {
+  font-family: var(--sans);
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.section-title em {
+  font-style: italic;
+  font-family: var(--serif);
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-2);
+  margin-bottom: clamp(40px,5vw,72px);
+  opacity: 0.6;
+}
+
+/* ─── ABOUT ─── */
+#about { background: rgba(255,255,255,0.28); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(36px, 6vw, 90px);
+  align-items: start;
+}
+.about-lead {
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ink-2);
+  margin-bottom: 22px;
+}
+.about-lead strong {
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+.about-body {
+  font-size: 0.93rem;
+  font-weight: 400;
+  line-height: 1.82;
+  color: var(--ink-2);
+  margin-bottom: 18px;
+}
+.about-chips {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 28px;
+}
+.chip {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  padding: 5px 12px;
+  border: 1px solid var(--border-glass);
+  border-radius: 100px;
+  color: var(--ink-2);
+  background: var(--bg-glass);
+  backdrop-filter: blur(8px);
+  letter-spacing: 0.04em;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+.about-detail {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 32px;
+}
+.detail-key {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 2px;
+  display: block;
+}
+.detail-val { font-size: 0.88rem; font-weight: 500; color: var(--ink); }
+
+/* Timeline */
+.timeline {}
+.tl-item {
+  display: flex; gap: 20px;
+  margin-bottom: 32px;
+  position: relative;
+}
+.tl-item::after {
+  content: '';
+  position: absolute;
+  left: 15px; top: 32px;
+  width: 1px;
+  height: calc(100% + 8px);
+  background: var(--border-2);
+}
+.tl-item:last-child::after { display: none; }
+.tl-dot {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--bg-glass);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid var(--border-glass);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  color: var(--ink-3);
+  transition: border-color 0.3s, background 0.3s, color 0.3s;
+  z-index: 1;
+}
+.tl-item:hover .tl-dot { border-color: var(--accent); background: var(--accent-bg2); color: var(--accent); }
+.tl-content {}
+.tl-date {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.tl-role {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 1px;
+}
+.tl-company { font-size: 0.8rem; color: var(--ink-3); margin-bottom: 8px; font-weight: 500; }
+.tl-desc { font-size: 0.83rem; font-weight: 400; line-height: 1.72; color: var(--ink-2); }
+.cert-card {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px;
+  border: 1px solid var(--border-glass);
+  border-radius: 14px;
+  margin-top: 24px;
+  background: var(--bg-glass);
+  backdrop-filter: var(--blur-sm);
+  -webkit-backdrop-filter: var(--blur-sm);
+  box-shadow: var(--shadow);
+  transition: border-color 0.25s, transform 0.25s var(--ease-expo), box-shadow 0.25s;
+}
+.cert-card:hover { border-color: var(--accent); transform: translateX(4px); box-shadow: var(--shadow-glass); }
+.cert-icon { color: #F59E0B; font-size: 1.2rem; }
+.cert-name { font-size: 0.83rem; font-weight: 500; color: var(--ink); }
+.cert-issuer { font-size: 0.72rem; color: var(--ink-3); margin-top: 1px; }
+
+/* ─── SKILLS ─── */
+#skills { background: transparent; }
+/* Texto visible sobre fondo glass */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.skill-cat-title {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(124,58,237,0.15);
+}
+.skill-card {
+  background: var(--bg-glass);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border: 1px solid var(--border-glass);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s var(--ease-expo);
+}
+.skill-card:hover { border-color: rgba(124,58,237,0.3); box-shadow: var(--shadow-glass); transform: translateY(-4px); }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-tag {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.5);
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  transition: all 0.2s;
+}
+.skill-tag i { font-size: 1rem; }
+.skill-tag:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+
+/* ─── PROJECTS ─── */
+#projects { background: transparent; }
+.projects-list { display: flex; flex-direction: column; gap: 24px; }
+
+/* Tarjeta featured grande */
+.project-featured {
+  background: var(--bg-glass);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border: 1px solid var(--border-glass);
+  border-radius: 22px;
+  padding: clamp(28px, 4vw, 48px);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: start;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.3s, transform 0.3s var(--ease-expo);
+}
+.project-featured::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: var(--grad-accent);
+}
+.project-featured:hover { box-shadow: var(--shadow-glass); transform: translateY(-3px); }
+.project-featured-meta { min-width: 260px; }
+
+/* Grid de tarjetas secundarias */
+.projects-secondary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.project-card {
+  background: var(--bg-glass);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border: 1px solid var(--border-glass);
+  border-radius: 18px;
+  padding: 28px;
+  display: flex; flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.25s, transform 0.25s var(--ease-expo), border-color 0.25s;
+}
+.project-card:hover { box-shadow: var(--shadow-glass); transform: translateY(-4px); border-color: rgba(124,58,237,0.2); }
+
+.project-badge {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.project-badge::before { content: ''; width: 12px; height: 1.5px; background: var(--accent); }
+.project-title {
+  font-family: var(--sans);
+  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+.project-desc {
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.78;
+  color: var(--ink-2);
+  margin-bottom: 20px;
+  flex: 1;
+}
+.project-metrics {
+  display: flex; gap: 20px; flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.metric-num {
+  font-family: var(--sans);
+  font-size: 1.7rem;
+  font-weight: 800;
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block; line-height: 1;
+}
+.metric-label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  display: block; margin-top: 2px;
+}
+.project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.p-tag {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  padding: 4px 10px;
+  border: 1px solid rgba(124,58,237,0.15);
+  border-radius: 6px;
+  color: var(--ink-3);
+  background: rgba(255,255,255,0.4);
+  letter-spacing: 0.04em;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.project-card:hover .p-tag,
+.project-featured:hover .p-tag { border-color: rgba(124,58,237,0.3); color: var(--ink-2); background: rgba(124,58,237,0.06); }
+.project-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: auto;
+  transition: gap 0.25s var(--ease-expo);
+}
+.project-link:hover { gap: 13px; }
+.project-image {
+  width: 280px; min-width: 280px;
+  aspect-ratio: 16/10;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.project-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease-expo); }
+.project-featured:hover .project-image img { transform: scale(1.05); }
+
+/* Suite table */
+.suite-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.78rem; }
+.suite-table th {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(124,58,237,0.15);
+}
+.suite-table td { padding: 7px 12px; border-bottom: 1px solid rgba(124,58,237,0.06); color: var(--ink-2); }
+.suite-table tr:hover td { background: var(--accent-bg); }
+.suite-table .num { font-family: var(--mono); color: var(--accent); font-weight: 600; }
+
+/* ─── CONTACT ─── */
+#contact { background: transparent; }
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: clamp(36px, 6vw, 90px);
+  align-items: start;
+}
+.contact-headline {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.contact-headline em {
+  font-style: italic;
+  font-family: var(--serif);
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.contact-sub {
+  font-size: 0.92rem; font-weight: 400;
+  line-height: 1.78; color: var(--ink-2);
+  margin-bottom: 36px;
+}
+.contact-links { display: flex; flex-direction: column; gap: 12px; }
+.clink {
+  display: flex; align-items: center; gap: 14px;
+  padding: 15px 18px;
+  border: 1px solid var(--border-glass);
+  border-radius: 14px;
+  background: var(--bg-glass);
+  backdrop-filter: var(--blur-sm);
+  -webkit-backdrop-filter: var(--blur-sm);
+  transition: all 0.25s var(--ease-expo);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+}
+.clink:hover { border-color: rgba(124,58,237,0.25); transform: translateX(4px); background: var(--accent-bg); box-shadow: var(--shadow-glass); }
+.clink-icon {
+  width: 36px; height: 36px;
+  background: var(--grad-accent);
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 0.9rem; flex-shrink: 0;
+}
+.cl-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+.cl-value { font-size: 0.9rem; font-weight: 500; color: var(--ink); margin-top: 2px; }
+
+/* Form */
+.contact-form { display: flex; flex-direction: column; gap: 14px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.form-input, .form-textarea {
+  padding: 11px 14px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--ink);
+  transition: border-color 0.25s, box-shadow 0.25s;
+  outline: none; resize: none;
+}
+.form-input:focus, .form-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.12);
+  background: rgba(255,255,255,0.72);
+}
+.form-textarea { min-height: 120px; }
+#form-status {
+  font-size: 0.82rem;
+  padding: 10px 14px;
+  border-radius: 6px;
+  display: none;
+}
+#form-status.success { display: block; background: var(--green-bg); border: 1px solid rgba(22,163,74,0.3); color: var(--green); }
+#form-status.error { display: block; background: rgba(220,38,38,0.07); border: 1px solid rgba(220,38,38,0.25); color: #DC2626; }
+.form-submit {
+  padding: 13px 36px;
+  background: var(--grad-accent);
+  color: #fff;
+  border: none; border-radius: 100px;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.25s, transform 0.2s var(--ease-back), box-shadow 0.25s;
+  display: flex; align-items: center; gap: 9px;
+  width: fit-content;
+  box-shadow: 0 2px 12px rgba(124,58,237,0.3);
+}
+.form-submit:hover { opacity: 0.88; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: rgba(243,239,248,0.82);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border-top: 1px solid var(--border-glass);
+  color: var(--ink-3);
+  padding: 36px clamp(20px,5vw,80px);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 14px;
+}
+.footer-logo { font-family: var(--sans); font-size: 1.05rem; font-weight: 800; color: var(--ink); letter-spacing: -0.03em; }
+.footer-logo span { color: var(--accent); }
+.footer-copy { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.07em; }
+.footer-links { display: flex; gap: 18px; }
+.footer-links a { font-size: 1.3rem; color: var(--ink-3); transition: color 0.2s; }
+.footer-links a:hover { color: var(--accent); }
+
+/* ─── REVEAL ANIMATIONS ─── */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.7s var(--ease-expo), transform 0.7s var(--ease-expo);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-left {
+  opacity: 0; transform: translateX(-28px);
+  transition: opacity 0.7s var(--ease-expo), transform 0.7s var(--ease-expo);
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-right {
+  opacity: 0; transform: translateX(28px);
+  transition: opacity 0.7s var(--ease-expo), transform 0.7s var(--ease-expo);
+}
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+.delay-1{transition-delay:0.1s!important;}
+.delay-2{transition-delay:0.2s!important;}
+.delay-3{transition-delay:0.3s!important;}
+.delay-4{transition-delay:0.4s!important;}
+.delay-5{transition-delay:0.5s!important;}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 960px) {
+  #hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .about-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .projects-secondary { grid-template-columns: 1fr; }
+  .project-featured { grid-template-columns: 1fr; }
+  .project-featured-meta { min-width: unset; }
+  .project-image { width: 100%; min-width: unset; }
+  .contact-layout { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  body { cursor: auto; }
+}
+@media (max-width: 600px) {
+  .hero-stats { gap: 22px; }
+  .hero-actions { flex-direction: column; }
+  footer { flex-direction: column; text-align: center; }
+  .suite-table { font-size: 0.72rem; }
+}
+
+/* Noise sutil para textura */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.018'/%3E%3C/svg%3E");
+  pointer-events: none; opacity: 0.2; z-index: 998;
+}
+</style>
+</head>
+<body>
+
+<canvas id="hero-canvas"></canvas>
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">E<span>.</span>Alcalá</a>
+  <div class="nav-links" id="nav-links">
+    <a href="#about"    data-i18n="nav.about">Sobre mí</a>
+    <a href="#skills"   data-i18n="nav.skills">Habilidades</a>
+    <a href="#projects" data-i18n="nav.projects">Proyectos</a>
+    <a href="#contact"  data-i18n="nav.contact">Contacto</a>
+    <button class="lang-btn" id="langToggle">EN</button>
+    <a href="assets/docs/CV_Eduardo_Alcala_QA.pdf" target="_blank" class="btn-nav-cv">
+      <span data-i18n="nav.cv">Descargar CV</span> <i class="fa-solid fa-download"></i>
+    </a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false" aria-controls="mobileNav">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about"    data-i18n="nav.about">Sobre mí</a>
+  <a href="#skills"   data-i18n="nav.skills">Habilidades</a>
+  <a href="#projects" data-i18n="nav.projects">Proyectos</a>
+  <a href="#contact"  data-i18n="nav.contact">Contacto</a>
+  <button class="lang-btn" id="langToggle2" style="font-size:0.9rem;padding:10px 24px;">EN</button>
+</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="hero">
+
+  <div class="hero-left">
+    <div class="hero-eyebrow reveal">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text" data-i18n="hero.eyebrow">QA Automation Engineer</span>
+    </div>
+    <h1 class="hero-name reveal delay-1">
+      Eduardo<br><em>Alcalá</em>
+    </h1>
+    <div class="hero-role-row reveal delay-2">
+      <span class="hero-role" data-i18n="hero.role">Testing con intención.</span>
+      <span class="hero-badge" data-i18n="hero.available">Disponible</span>
+    </div>
+    <p class="hero-tagline reveal delay-3" data-i18n="hero.tagline">
+      Construyo sistemas de pruebas que detectan lo que otros pasan por alto. Automatización precisa, cobertura estratégica, entrega con confianza.
+    </p>
+    <div class="hero-actions reveal delay-4">
+      <a href="#projects" class="btn-primary">
+        <span data-i18n="hero.btn1">Ver proyectos</span>
+        <i class="fa-solid fa-arrow-down"></i>
+      </a>
+      <a href="#contact" class="btn-outline">
+        <span data-i18n="hero.btn2">Contactar</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-photo-outer">
+      <div class="hero-photo-frame">
+        <img src="assets/img/profile.png" alt="Eduardo Alcalá" loading="eager" />
+      </div>
+      <div class="hero-photo-cards">
+        <div class="hero-float-card">
+          <div class="float-icon"><i class="fa-solid fa-vial-circle-check"></i></div>
+          <div class="float-text">
+            <span class="float-num">251</span>
+            <span class="float-label" data-i18n="hero.stat1">Casos de prueba</span>
+            <span class="float-context" data-i18n="hero.floatCtx">Urban Scooter QA</span>
+          </div>
+        </div>
+        <div class="hero-float-card">
+          <div class="float-icon"><i class="fa-solid fa-bug"></i></div>
+          <div class="float-text">
+            <span class="float-num">81</span>
+            <span class="float-label" data-i18n="hero.floatLabel">Bugs críticos</span>
+            <span class="float-context" data-i18n="hero.floatCtx">Urban Scooter QA</span>
+          </div>
+        </div>
+        <div class="hero-float-card">
+          <div class="float-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <div class="float-text">
+            <span class="float-num">5</span>
+            <span class="float-label" data-i18n="hero.stat3">Suites</span>
+            <span class="float-context" data-i18n="hero.floatCtx">Urban Scooter QA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll" data-i18n="hero.scroll">Scroll</div>
+</section>
+
+<!-- Tools strip -->
+<div class="tools-strip" aria-hidden="true">
+  <div class="tools-track">
+    <!-- set A -->
+    <span class="tool-item"><i class="devicon-python-plain colored"></i><span class="tool-name">Python</span></span>
+    <span class="tool-item"><i class="fa-solid fa-masks-theater tool-pw"></i><span class="tool-name">Playwright</span></span>
+    <span class="tool-item"><i class="devicon-selenium-original colored"></i><span class="tool-name">Selenium</span></span>
+    <span class="tool-item"><i class="fa-solid fa-flask tool-pytest"></i><span class="tool-name">Pytest</span></span>
+    <span class="tool-item"><i class="devicon-postgresql-plain colored"></i><span class="tool-name">PostgreSQL</span></span>
+    <span class="tool-item"><i class="devicon-git-plain colored"></i><span class="tool-name">Git</span></span>
+    <span class="tool-item"><i class="devicon-github-original"></i><span class="tool-name">GitHub</span></span>
+    <span class="tool-item"><i class="devicon-docker-plain colored"></i><span class="tool-name">Docker</span></span>
+    <span class="tool-item"><i class="devicon-vscode-plain colored"></i><span class="tool-name">VS Code</span></span>
+    <span class="tool-item"><i class="devicon-jira-plain colored"></i><span class="tool-name">Jira</span></span>
+    <span class="tool-item"><i class="fa-solid fa-satellite-dish tool-postman"></i><span class="tool-name">Postman</span></span>
+    <span class="tool-item"><i class="fa-brands fa-linux tool-linux"></i><span class="tool-name">Linux</span></span>
+    <!-- set B (copia exacta para loop continuo) -->
+    <span class="tool-item"><i class="devicon-python-plain colored"></i><span class="tool-name">Python</span></span>
+    <span class="tool-item"><i class="fa-solid fa-masks-theater tool-pw"></i><span class="tool-name">Playwright</span></span>
+    <span class="tool-item"><i class="devicon-selenium-original colored"></i><span class="tool-name">Selenium</span></span>
+    <span class="tool-item"><i class="fa-solid fa-flask tool-pytest"></i><span class="tool-name">Pytest</span></span>
+    <span class="tool-item"><i class="devicon-postgresql-plain colored"></i><span class="tool-name">PostgreSQL</span></span>
+    <span class="tool-item"><i class="devicon-git-plain colored"></i><span class="tool-name">Git</span></span>
+    <span class="tool-item"><i class="devicon-github-original"></i><span class="tool-name">GitHub</span></span>
+    <span class="tool-item"><i class="devicon-docker-plain colored"></i><span class="tool-name">Docker</span></span>
+    <span class="tool-item"><i class="devicon-vscode-plain colored"></i><span class="tool-name">VS Code</span></span>
+    <span class="tool-item"><i class="devicon-jira-plain colored"></i><span class="tool-name">Jira</span></span>
+    <span class="tool-item"><i class="fa-solid fa-satellite-dish tool-postman"></i><span class="tool-name">Postman</span></span>
+    <span class="tool-item"><i class="fa-brands fa-linux tool-linux"></i><span class="tool-name">Linux</span></span>
+  </div>
+</div>
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <div class="section-title-group">
+      <span class="section-label" data-i18n="about.label">Sobre mí</span>
+      <h2 class="section-title reveal" data-i18n="about.title">Precisión como <em>filosofía</em></h2>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="about-grid">
+    <div class="reveal-left">
+      <p class="about-lead" data-i18n="about.lead">
+        Especialista en <strong>QA Automation</strong> con enfoque en calidad estratégica y entrega confiable de software.
+      </p>
+      <p class="about-body" data-i18n="about.body1">
+        Mi trabajo va más allá de encontrar bugs. Diseño arquitecturas de pruebas que dan a los equipos la confianza para moverse rápido sin romper cosas. Cada suite de automatización que construyo es una inversión a largo plazo en la salud del producto.
+      </p>
+      <p class="about-body" data-i18n="about.body2">
+        Combinando experiencia técnica en Python, Playwright y APIs REST con metodologías estructuradas de QA, entrego cobertura que importa, no solo métricas de cobertura.
+      </p>
+      <div class="about-chips">
+        <span class="chip">Python 3.11+</span>
+        <span class="chip">Playwright</span>
+        <span class="chip">Selenium</span>
+        <span class="chip">Appium</span>
+        <span class="chip">Pytest</span>
+        <span class="chip">REST API</span>
+        <span class="chip">PostgreSQL</span>
+        <span class="chip">Jira</span>
+        <span class="chip">Page Object Model</span>
+        <span class="chip">BVA / Equivalence</span>
+      </div>
+      <div class="about-detail">
+        <div>
+          <span class="detail-key" data-i18n="about.loc_label">Ubicación</span>
+          <span class="detail-val">Fresnillo, México</span>
+        </div>
+        <div>
+          <span class="detail-key" data-i18n="about.mode_label">Modalidad</span>
+          <span class="detail-val" data-i18n="about.mode_val">Remoto / Híbrido</span>
+        </div>
+        <div>
+          <span class="detail-key" data-i18n="about.lang_label">Idiomas</span>
+          <span class="detail-val">Español · Inglés</span>
+        </div>
+        <div>
+          <span class="detail-key" data-i18n="about.focus_label">Enfoque</span>
+          <span class="detail-val" data-i18n="about.focus_val">QA Automation · API · E2E</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal-right">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"><i class="fa-solid fa-code-branch"></i></div>
+          <div class="tl-content">
+            <div class="tl-date">Sep 2025 — Abr 2026</div>
+            <div class="tl-role" data-i18n="exp1.role">QA Automation Engineer</div>
+            <div class="tl-company">TripleTen</div>
+            <div class="tl-desc" data-i18n="exp1.desc">
+              Diseño y ejecución de suites de automatización E2E con Playwright y Python. Testing de APIs REST, bases de datos PostgreSQL y flujos móviles con Appium. Pipeline completo de bugs hacia Jira.
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><i class="fa-solid fa-microchip"></i></div>
+          <div class="tl-content">
+            <div class="tl-date">Jul 2015 — Jul 2024</div>
+            <div class="tl-role" data-i18n="exp2.role">Líder Técnico de Prueba Eléctrica</div>
+            <div class="tl-company">Kauffman Engineering</div>
+            <div class="tl-desc" data-i18n="exp2.desc">
+              Lideré equipo de hasta 6 ingenieros en control de calidad final de arneses industriales. Apliqué APQP y FMEA en análisis de causa raíz (RCA), reduciendo tiempos de elaboración un 85%. Base directa de risk-based testing y Traceability Matrix en QA de software.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <i class="fa-solid fa-certificate cert-icon"></i>
+        <div>
+          <div class="cert-name" data-i18n="cert.name">QA Engineering Professional</div>
+          <div class="cert-issuer" data-i18n="cert.issuer">TripleTen · 2026</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <i class="fa-brands fa-google cert-icon" style="color:#4285F4;"></i>
+        <div>
+          <div class="cert-name" data-i18n="cert2.name">Google Data Analytics</div>
+          <div class="cert-issuer" data-i18n="cert2.issuer">Google / Coursera · 2024</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <i class="fa-solid fa-award cert-icon" style="color:#10B981;"></i>
+        <div>
+          <div class="cert-name" data-i18n="cert3.name">QA Analyst Professional</div>
+          <div class="cert-issuer" data-i18n="cert3.issuer">Coderhouse · 2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SKILLS ═══════════════ -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <div class="section-title-group">
+      <span class="section-label" data-i18n="skills.label">Stack técnico</span>
+      <h2 class="section-title reveal" data-i18n="skills.title">Herramientas que <em>domino</em></h2>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="skills-grid">
+    <div class="skill-card reveal delay-1">
+      <div class="skill-cat-title" data-i18n="skills.col1">Automatización</div>
+      <div class="skill-tags">
+        <span class="skill-tag"><i class="devicon-python-plain colored"></i>Python</span>
+        <span class="skill-tag"><i class="fa-solid fa-masks-theater" style="color:#2ECC71;font-size:1rem;"></i>Playwright</span>
+        <span class="skill-tag"><i class="devicon-selenium-original colored"></i>Selenium</span>
+        <span class="skill-tag"><i class="fa-solid fa-flask" style="color:#0A9EDC;font-size:1rem;"></i>Pytest</span>
+        <span class="skill-tag"><i class="fa-solid fa-mobile" style="color:#60a5fa;"></i>Appium</span>
+      </div>
+    </div>
+    <div class="skill-card reveal delay-2">
+      <div class="skill-cat-title" data-i18n="skills.col2">APIs &amp; Base de datos</div>
+      <div class="skill-tags">
+        <span class="skill-tag"><i class="fa-solid fa-satellite-dish" style="color:#f59e0b;"></i>Postman</span>
+        <span class="skill-tag"><i class="devicon-postgresql-plain colored"></i>PostgreSQL</span>
+        <span class="skill-tag"><i class="fa-solid fa-code" style="color:#818cf8;"></i>REST APIs</span>
+        <span class="skill-tag"><i class="fa-solid fa-database" style="color:#94a3b8;"></i>SQL</span>
+        <span class="skill-tag"><i class="fa-solid fa-wifi" style="color:#34d399;"></i>Charles Proxy</span>
+      </div>
+    </div>
+    <div class="skill-card reveal delay-3">
+      <div class="skill-cat-title" data-i18n="skills.col3">Proceso &amp; QA</div>
+      <div class="skill-tags">
+        <span class="skill-tag"><i class="devicon-jira-plain colored"></i>Jira</span>
+        <span class="skill-tag"><i class="devicon-git-plain colored"></i>Git</span>
+        <span class="skill-tag"><i class="fa-solid fa-list-check" style="color:#2563eb;"></i>Test Planning</span>
+        <span class="skill-tag"><i class="fa-solid fa-bug" style="color:#f87171;"></i>Bug Reporting</span>
+        <span class="skill-tag"><i class="fa-brands fa-linux" style="color:#94a3b8;"></i>Linux / CLI</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PROJECTS ═══════════════ -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <div class="section-title-group">
+      <span class="section-label" data-i18n="projects.label">Trabajo seleccionado</span>
+      <h2 class="section-title reveal" data-i18n="projects.title">Proyectos que <em>importan</em></h2>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="projects-list">
+
+    <!-- ── FEATURED: Urban Scooter QA Framework ── -->
+    <div class="project-featured reveal">
+      <div>
+        <div class="project-badge" data-i18n="proj1.badge">Proyecto principal · Framework completo</div>
+        <h3 class="project-title" data-i18n="proj1.title">Urban Scooter — QA Automation Framework</h3>
+        <p class="project-desc" data-i18n="proj1.desc">
+          Framework de automatización E2E diseñado desde cero para una plataforma de alquiler de scooters urbanos. Cubre la pirámide de pruebas completa: web (Playwright + Opera/Chrome), API REST (Requests), móvil (Appium + Android) y base de datos (PostgreSQL via SSH). Incluye un launcher GUI con Tkinter, pipeline automatizado de bugs hacia Jira y generación de reportes Excel/CSV.
+        </p>
+
+        <table class="suite-table" aria-label="Distribución de suites">
+          <thead>
+            <tr>
+              <th data-i18n="suite.suite">Suite</th>
+              <th data-i18n="suite.scope">Alcance</th>
+              <th data-i18n="suite.cases">Casos</th>
+              <th data-i18n="suite.bugs">Bugs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>T2 – Checklist Web</td><td data-i18n="suite.t2">58 verificaciones funcionales (Opera + Chrome)</td><td class="num">116</td><td class="num">31</td></tr>
+            <tr><td>T2 – Validación</td><td data-i18n="suite.t2b">39 casos límite y equivalencia</td><td class="num">78</td><td class="num">18</td></tr>
+            <tr><td>T3 – Móvil</td><td data-i18n="suite.t3">Notificaciones push — Android (Appium)</td><td class="num">8</td><td class="num">8</td></tr>
+            <tr><td>T4 – API</td><td data-i18n="suite.t4">47 endpoints REST</td><td class="num">47</td><td class="num">23</td></tr>
+            <tr><td>T5 – Happy Path</td><td data-i18n="suite.t5">Ciclo de vida completo</td><td class="num">2</td><td class="num">1</td></tr>
+          </tbody>
+        </table>
+
+        <div class="project-tags" style="margin-top:16px;">
+          <span class="p-tag">Python 3.11</span>
+          <span class="p-tag">Playwright</span>
+          <span class="p-tag">Appium</span>
+          <span class="p-tag">Pytest</span>
+          <span class="p-tag">PostgreSQL + SSH</span>
+          <span class="p-tag">Jira REST API</span>
+          <span class="p-tag">Page Object Model</span>
+          <span class="p-tag">Tkinter GUI</span>
+          <span class="p-tag">openpyxl</span>
+        </div>
+        <div style="display:flex;gap:16px;margin-top:20px;flex-wrap:wrap;">
+          <a href="https://github.com/alcalaeduardo-qa/urban-scooter-qa" target="_blank" rel="noopener" class="project-link">
+            <span data-i18n="proj.github">Ver en GitHub</span> <i class="fa-brands fa-github"></i>
+          </a>
+        </div>
+      </div>
+      <div class="project-featured-meta">
+        <div class="project-metrics" style="flex-direction:column;gap:16px;margin-bottom:24px;">
+          <div><span class="metric-num">251</span><span class="metric-label" data-i18n="proj1.m1">Casos de prueba</span></div>
+          <div><span class="metric-num">81</span><span class="metric-label" data-i18n="proj1.m2">Bugs documentados</span></div>
+          <div><span class="metric-num">5</span><span class="metric-label" data-i18n="proj1.m3">Suites de prueba</span></div>
+        </div>
+
+        <!-- Panel QA Launcher -->
+        <div style="margin-bottom:10px;">
+          <div style="font-family:var(--mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;" data-i18n="proj1.panel_label">Panel QA Launcher</div>
+          <div class="project-image" style="border-radius:12px;overflow:hidden;border:1.5px solid var(--border-glass);box-shadow:var(--shadow);">
+            <img src="assets/img/qa-launcher.png" alt="QA Launcher — Panel de control" loading="lazy" style="width:100%;height:auto;display:block;" />
+          </div>
+        </div>
+
+        <!-- Bugs Jira -->
+        <div>
+          <div style="font-family:var(--mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;" data-i18n="proj1.jira_label">Reporte de bugs</div>
+          <div class="project-image" style="border-radius:12px;overflow:hidden;border:1.5px solid var(--border-glass);box-shadow:var(--shadow);">
+            <img src="assets/img/jira-bugs.png" alt="Urban Scooter QA — Reporte Jira" loading="lazy" style="width:100%;height:auto;display:block;" />
+          </div>
+        </div>
+
+        <div style="margin-top:12px;padding:12px 14px;background:rgba(255,255,255,0.45);backdrop-filter:blur(10px);border:1px solid var(--border-glass);border-radius:12px;">
+          <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;" data-i18n="proj1.arch_label">Arquitectura</div>
+          <div style="font-size:0.78rem;color:var(--ink-2);line-height:1.6;" data-i18n="proj1.arch">
+            POM · Fixtures reutilizables · Decoradores @retry / @screenshot_on_fail · Config por .env · Doble navegador parametrizado
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Grid secundario ── -->
+    <div class="projects-secondary">
+
+      <!-- QA Launcher -->
+      <div class="project-card reveal delay-1">
+        <div class="project-badge" data-i18n="proj2.badge">GUI · Automatización</div>
+        <h3 class="project-title" data-i18n="proj2.title">QA Launcher</h3>
+        <p class="project-desc" data-i18n="proj2.desc">
+          Panel de control con interfaz gráfica (Tkinter) para ejecutar las 5 suites de prueba de Urban Scooter desde un solo clic. Genera reporte de bugs en Excel/CSV e integra la carga directa a Jira vía REST API con adjunción automática de capturas de pantalla.
+        </p>
+        <div class="project-tags">
+          <span class="p-tag">Python</span>
+          <span class="p-tag">Tkinter</span>
+          <span class="p-tag">Jira API</span>
+          <span class="p-tag">openpyxl</span>
+          <span class="p-tag">subprocess</span>
+        </div>
+        <a href="https://github.com/alcalaeduardo-qa/urban-scooter-qa" target="_blank" rel="noopener" class="project-link">
+          <span data-i18n="proj.github">Ver en GitHub</span> <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- Urban Routes E2E -->
+      <div class="project-card reveal delay-2">
+        <div class="project-badge" data-i18n="proj3.badge">E2E · Web</div>
+        <h3 class="project-title" data-i18n="proj3.title">Urban Routes E2E</h3>
+        <p class="project-desc" data-i18n="proj3.desc">
+          Automatización E2E de flujos críticos para plataforma de transporte urbano usando Selenium + Python. Arquitectura Page Object Model en 4 archivos separados, cubriendo 9 casos independientes. Resolución de interacción con botón React vía JavaScript Executor e interceptación de código SMS con Chrome DevTools Protocol.
+        </p>
+        <div class="project-tags">
+          <span class="p-tag">Selenium</span>
+          <span class="p-tag">Python</span>
+          <span class="p-tag">POM</span>
+          <span class="p-tag">pytest-html</span>
+        </div>
+        <a href="https://github.com/alcalaeduardo-qa/qa-project-Urban-Routes-es" target="_blank" rel="noopener" class="project-link">
+          <span data-i18n="proj.github">Ver en GitHub</span> <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- Urban Grocers API -->
+      <div class="project-card reveal delay-3">
+        <div class="project-badge" data-i18n="proj4.badge">API Testing</div>
+        <h3 class="project-title" data-i18n="proj4.title">Urban Grocers API</h3>
+        <p class="project-desc" data-i18n="proj4.desc">
+          Cobertura completa de endpoints REST para plataforma de delivery. Pruebas de validación, autenticación, manejo de errores y casos límite usando Pytest + Requests. Parametrización avanzada con fixtures.
+        </p>
+        <div class="project-tags">
+          <span class="p-tag">Python</span>
+          <span class="p-tag">Pytest</span>
+          <span class="p-tag">REST API</span>
+          <span class="p-tag">Postman</span>
+        </div>
+        <a href="https://github.com/alcalaeduardo-qa/qa-project-Urban-Grocers-app-es" target="_blank" rel="noopener" class="project-link">
+          <span data-i18n="proj.github">Ver en GitHub</span> <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <div class="section-title-group">
+      <span class="section-label" data-i18n="contact.label">Contacto</span>
+      <h2 class="section-title reveal" data-i18n="contact.title">Hablemos de <em>calidad</em></h2>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="contact-layout">
+    <div class="reveal-left">
+      <h3 class="contact-headline" data-i18n="contact.headline">¿Buscas un QA que <em>piense diferente?</em></h3>
+      <p class="contact-sub" data-i18n="contact.subline">
+        Disponible para posiciones remotas de QA Automation. Me interesa trabajar con equipos que valoren la calidad como parte de su cultura, no como un paso final.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:alcala.edugar@gmail.com" class="clink">
+          <div class="clink-icon"><i class="fa-regular fa-envelope"></i></div>
+          <div><div class="cl-label">Email</div><div class="cl-value">alcala.edugar@gmail.com</div></div>
+        </a>
+        <a href="https://linkedin.com/in/eduardo-alcala-qa" target="_blank" rel="noopener" class="clink">
+          <div class="clink-icon"><i class="fa-brands fa-linkedin"></i></div>
+          <div><div class="cl-label">LinkedIn</div><div class="cl-value">eduardo-alcala-qa</div></div>
+        </a>
+        <a href="https://github.com/alcalaeduardo-qa" target="_blank" rel="noopener" class="clink">
+          <div class="clink-icon"><i class="fa-brands fa-github"></i></div>
+          <div><div class="cl-label">GitHub</div><div class="cl-value">alcalaeduardo-qa</div></div>
+        </a>
+        <a href="assets/docs/CV_Eduardo_Alcala_QA.pdf" target="_blank" class="clink">
+          <div class="clink-icon"><i class="fa-regular fa-file-pdf"></i></div>
+          <div><div class="cl-label" data-i18n="contact.cv_label">Currículum</div><div class="cl-value" data-i18n="contact.cv_val">Descargar PDF</div></div>
+        </a>
+      </div>
+    </div>
+
+    <div class="reveal-right">
+      <form
+        action="https://formspree.io/f/xpqbakvy"
+        method="POST"
+        class="contact-form"
+        id="contactForm"
+      >
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="name" data-i18n="form.name">Nombre</label>
+            <input class="form-input" id="name" name="name" type="text" required
+              autocomplete="name" maxlength="100" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s\-'\.]{2,100}" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email" data-i18n="form.email">Email</label>
+            <input class="form-input" id="email" name="email" type="email" required
+              autocomplete="email" maxlength="254" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="subject" data-i18n="form.subject">Asunto</label>
+          <input class="form-input" id="subject" name="subject" type="text" maxlength="150" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="message" data-i18n="form.message">Mensaje</label>
+          <textarea class="form-textarea" id="message" name="message" required
+            minlength="10" maxlength="2000"></textarea>
+        </div>
+        <!-- Honeypot: campo trampa invisible para bots (nombre no obvio) -->
+        <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+          <label for="website_url">No llenar</label>
+          <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off" />
+        </div>
+        <div id="form-status" role="alert" aria-live="polite"></div>
+        <button type="submit" class="form-submit">
+          <span data-i18n="form.send">Enviar mensaje</span>
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">E<span>.</span>Alcalá</div>
+  <span class="footer-copy" data-i18n="footer.copy">© 2026 · QA Automation Engineer · LATAM</span>
+  <div class="footer-links">
+    <a href="https://github.com/alcalaeduardo-qa" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+    <a href="https://linkedin.com/in/eduardo-alcala-qa" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+    <a href="mailto:alcala.edugar@gmail.com" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
+  </div>
+</footer>
+
+<script>
+/* ══════════════ i18n ══════════════ */
+const T = {
+  es: {
+    "nav.about":"Sobre mí","nav.skills":"Habilidades","nav.projects":"Proyectos","nav.contact":"Contacto","nav.cv":"Descargar CV",
+    "hero.eyebrow":"QA Automation Engineer","hero.role":"Testing con intención.","hero.available":"Disponible",
+    "hero.tagline":"Construyo sistemas de pruebas que detectan lo que otros pasan por alto. Automatización precisa, cobertura estratégica, entrega con confianza.",
+    "hero.btn1":"Ver proyectos","hero.btn2":"Contactar","hero.stat1":"Casos de prueba","hero.stat2":"Bugs reportados","hero.stat3":"Suites",
+    "hero.stat1ctx":"Urban Scooter QA","hero.stat2ctx":"Urban Scooter QA","hero.stat3ctx":"Web · API · Móvil · BD",
+    "hero.floatLabel":"Bugs críticos","hero.floatCtx":"Urban Scooter QA","hero.tag":"QA · Remote","hero.scroll":"Scroll",
+    "about.label":"Sobre mí","about.title":"Precisión como filosofía",
+    "about.lead":"Especialista en <strong>QA Automation</strong> con enfoque en calidad estratégica y entrega confiable de software.",
+    "about.body1":"Mi trabajo va más allá de encontrar bugs. Diseño arquitecturas de pruebas que dan a los equipos la confianza para moverse rápido sin romper cosas. Cada suite de automatización que construyo es una inversión a largo plazo en la salud del producto.",
+    "about.body2":"Combinando experiencia técnica en Python, Playwright y APIs REST con metodologías estructuradas de QA, entrego cobertura que importa, no solo métricas de cobertura.",
+    "about.loc_label":"Ubicación","about.mode_label":"Modalidad","about.mode_val":"Remoto / Híbrido","about.lang_label":"Idiomas","about.focus_label":"Enfoque","about.focus_val":"QA Automation · API · E2E",
+    "exp1.role":"QA Automation Engineer","exp1.desc":"Diseño y ejecución de suites de automatización E2E con Playwright y Python. Testing de APIs REST, bases de datos PostgreSQL y flujos móviles con Appium. Pipeline completo de bugs hacia Jira.",
+    "exp2.role":"Líder Técnico de Prueba Eléctrica","exp2.desc":"Lideré equipo de hasta 6 ingenieros en control de calidad final de arneses industriales. Apliqué APQP y FMEA en análisis de causa raíz (RCA), reduciendo tiempos de elaboración un 85%. Base directa de risk-based testing y Traceability Matrix en QA de software.",
+    "cert.name":"QA Engineering Professional","cert.issuer":"TripleTen · 2026",
+    "cert2.name":"Google Data Analytics","cert2.issuer":"Google / Coursera · 2024",
+    "cert3.name":"QA Analyst Professional","cert3.issuer":"Coderhouse · 2024",
+    "skills.label":"Stack técnico","skills.title":"Herramientas que domino","skills.col1":"Automatización","skills.col2":"APIs & Base de datos","skills.col3":"Proceso & QA",
+    "projects.label":"Trabajo seleccionado","projects.title":"Proyectos que importan",
+    "proj1.badge":"Proyecto principal · Framework completo","proj1.title":"Urban Scooter — QA Automation Framework",
+    "proj1.desc":"Framework de automatización E2E diseñado desde cero para una plataforma de alquiler de scooters urbanos. Cubre la pirámide de pruebas completa: web (Playwright + Opera/Chrome), API REST, móvil (Appium + Android) y base de datos (PostgreSQL via SSH). Incluye launcher GUI, pipeline automatizado de bugs hacia Jira y reportes Excel/CSV.",
+    "proj1.m1":"Casos de prueba","proj1.m2":"Bugs documentados","proj1.m3":"Suites de prueba",
+    "proj1.panel_label":"Panel QA Launcher","proj1.jira_label":"Reporte de bugs",
+    "proj1.arch_label":"Arquitectura","proj1.arch":"POM · Fixtures reutilizables · Decoradores @retry / @screenshot_on_fail · Config por .env · Doble navegador parametrizado",
+    "suite.suite":"Suite","suite.scope":"Alcance","suite.cases":"Casos","suite.bugs":"Bugs",
+    "suite.t2":"58 verificaciones funcionales (Opera + Chrome)","suite.t2b":"39 casos límite y equivalencia",
+    "suite.t3":"Notificaciones push — Android (Appium)","suite.t4":"47 endpoints REST","suite.t5":"Ciclo de vida completo",
+    "proj2.badge":"GUI · Automatización","proj2.title":"QA Launcher",
+    "proj2.desc":"Panel de control con interfaz gráfica (Tkinter) para ejecutar las 5 suites de prueba de Urban Scooter desde un solo clic. Genera reporte de bugs en Excel/CSV e integra la carga directa a Jira vía REST API con adjunción automática de capturas de pantalla.",
+    "proj3.badge":"E2E · Web","proj3.title":"Urban Routes E2E",
+    "proj3.desc":"Automatización E2E de flujos críticos para plataforma de transporte urbano usando Selenium + Python. Arquitectura Page Object Model en 4 archivos separados, cubriendo 9 casos independientes. Resolución de interacción con botón React vía JavaScript Executor e interceptación de código SMS con Chrome DevTools Protocol.",
+    "proj4.badge":"API Testing","proj4.title":"Urban Grocers API",
+    "proj4.desc":"Cobertura completa de endpoints REST para plataforma de delivery. Pruebas de validación, autenticación, manejo de errores y casos límite usando Pytest + Requests. Parametrización avanzada con fixtures.",
+    "proj.github":"Ver en GitHub",
+    "contact.label":"Contacto","contact.title":"Hablemos de calidad","contact.headline":"¿Buscas un QA que piense diferente?",
+    "contact.subline":"Disponible para posiciones remotas de QA Automation. Me interesa trabajar con equipos que valoren la calidad como parte de su cultura, no como un paso final.",
+    "contact.cv_label":"Currículum","contact.cv_val":"Descargar PDF",
+    "form.name":"Nombre","form.email":"Email","form.subject":"Asunto","form.message":"Mensaje","form.send":"Enviar mensaje",
+    "footer.copy":"© 2026 · QA Automation Engineer · LATAM",
+  },
+  en: {
+    "nav.about":"About","nav.skills":"Skills","nav.projects":"Projects","nav.contact":"Contact","nav.cv":"Download CV",
+    "hero.eyebrow":"QA Automation Engineer","hero.role":"Testing with intention.","hero.available":"Available",
+    "hero.tagline":"I build test systems that catch what others miss. Precise automation, strategic coverage, confident delivery.",
+    "hero.btn1":"View projects","hero.btn2":"Get in touch","hero.stat1":"Test cases","hero.stat2":"Bugs reported","hero.stat3":"Suites",
+    "hero.stat1ctx":"Urban Scooter QA","hero.stat2ctx":"Urban Scooter QA","hero.stat3ctx":"Web · API · Mobile · DB",
+    "hero.floatLabel":"Critical bugs","hero.floatCtx":"Urban Scooter QA","hero.tag":"QA · Remote","hero.scroll":"Scroll",
+    "about.label":"About","about.title":"Precision as philosophy",
+    "about.lead":"<strong>QA Automation</strong> specialist focused on strategic quality and reliable software delivery.",
+    "about.body1":"My work goes beyond finding bugs. I design test architectures that give teams the confidence to move fast without breaking things. Every automation suite I build is a long-term investment in product health.",
+    "about.body2":"Combining technical expertise in Python, Playwright and REST APIs with structured QA methodologies, I deliver coverage that matters, not just coverage numbers.",
+    "about.loc_label":"Location","about.mode_label":"Mode","about.mode_val":"Remote / Hybrid","about.lang_label":"Languages","about.focus_label":"Focus","about.focus_val":"QA Automation · API · E2E",
+    "exp1.role":"QA Automation Engineer","exp1.desc":"Design and execution of E2E automation suites using Playwright and Python. REST API testing, PostgreSQL database validation and mobile flows with Appium. Full bug pipeline to Jira.",
+    "exp2.role":"Electrical Testing Technical Lead","exp2.desc":"Led a team of up to 6 engineers in final quality control for industrial harness manufacturing. Applied APQP and FMEA in root cause analysis (RCA), reducing processing time by 85%. Direct foundation for risk-based testing and Traceability Matrix practices in software QA.",
+    "cert.name":"QA Engineering Professional","cert.issuer":"TripleTen · 2026",
+    "cert2.name":"Google Data Analytics","cert2.issuer":"Google / Coursera · 2024",
+    "cert3.name":"QA Analyst Professional","cert3.issuer":"Coderhouse · 2024",
+    "skills.label":"Tech stack","skills.title":"Tools I master","skills.col1":"Automation","skills.col2":"APIs & Database","skills.col3":"Process & QA",
+    "projects.label":"Selected work","projects.title":"Projects that matter",
+    "proj1.badge":"Featured · Full framework","proj1.title":"Urban Scooter — QA Automation Framework",
+    "proj1.desc":"E2E automation framework built from scratch for an urban scooter rental platform. Covers the full testing pyramid: web (Playwright + Opera/Chrome), REST API, mobile (Appium + Android) and database (PostgreSQL via SSH). Includes a GUI launcher, automated bug pipeline to Jira and Excel/CSV reports.",
+    "proj1.m1":"Test cases","proj1.m2":"Documented bugs","proj1.m3":"Test suites",
+    "proj1.panel_label":"QA Launcher Panel","proj1.jira_label":"Bug report",
+    "proj1.arch_label":"Architecture","proj1.arch":"POM · Reusable fixtures · @retry / @screenshot_on_fail decorators · .env config · Dual-browser parametrized",
+    "suite.suite":"Suite","suite.scope":"Scope","suite.cases":"Cases","suite.bugs":"Bugs",
+    "suite.t2":"58 functional checks (Opera + Chrome)","suite.t2b":"39 boundary & equivalence cases",
+    "suite.t3":"Push notifications — Android (Appium)","suite.t4":"47 REST endpoints","suite.t5":"Complete lifecycle",
+    "proj2.badge":"GUI · Automation","proj2.title":"QA Launcher",
+    "proj2.desc":"GUI control panel (Tkinter) to run all 5 Urban Scooter test suites with a single click. Generates bug reports in Excel/CSV and uploads them directly to Jira via REST API with automatic screenshot attachment.",
+    "proj3.badge":"E2E · Web","proj3.title":"Urban Routes E2E",
+    "proj3.desc":"E2E automation of critical flows for an urban transport platform using Selenium + Python. Page Object Model architecture across 4 separate files covering 9 independent test cases. Solved React button interaction via JavaScript Executor and intercepted SMS codes using Chrome DevTools Protocol.",
+    "proj4.badge":"API Testing","proj4.title":"Urban Grocers API",
+    "proj4.desc":"Complete REST endpoint coverage for a delivery platform. Validation, authentication, error handling and edge cases using Pytest + Requests. Advanced parametrization with fixtures.",
+    "proj.github":"View on GitHub",
+    "contact.label":"Contact","contact.title":"Let's talk quality","contact.headline":"Looking for a QA who thinks differently?",
+    "contact.subline":"Available for remote QA Automation positions. I'm interested in working with teams that value quality as part of their culture, not just a final step.",
+    "contact.cv_label":"Resume","contact.cv_val":"Download PDF",
+    "form.name":"Name","form.email":"Email","form.subject":"Subject","form.message":"Message","form.send":"Send message",
+    "footer.copy":"© 2026 · QA Automation Engineer · LATAM",
+  }
+};
+
+let lang = 'es';
+function applyLang(l) {
+  lang = l;
+  document.documentElement.lang = l;
+  document.documentElement.setAttribute('data-lang', l);
+  const t = T[l];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (t[k] == null) return;
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') { el.placeholder = t[k]; return; }
+    /* Solo permitir etiquetas seguras: strong, em, br */
+    if (/^[^<]*(<(strong|em|br)[^>]*>[^<]*<\/(strong|em)>|<br\s*\/?>)*[^<]*$/.test(t[k])) {
+      el.innerHTML = t[k];
+    } else {
+      el.textContent = t[k];
+    }
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => b.textContent = l === 'es' ? 'EN' : 'ES');
+}
+document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => applyLang(lang === 'es' ? 'en' : 'es')));
+
+
+/* ══════════════ Progress bar ══════════════ */
+const pb = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  pb.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
+}, { passive: true });
+
+/* ══════════════ Nav scroll ══════════════ */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+/* ══════════════ Nav active ══════════════ */
+const secs = document.querySelectorAll('section[id]');
+const nlinks = document.querySelectorAll('.nav-links a[href^="#"]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 130) cur = s.id; });
+  nlinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+cur));
+}, { passive: true });
+
+/* ══════════════ Hamburger ══════════════ */
+const ham = document.getElementById('hamburger');
+const mob = document.getElementById('mobileNav');
+ham.addEventListener('click', () => {
+  ham.classList.toggle('open');
+  mob.classList.toggle('open');
+  ham.setAttribute('aria-expanded', ham.classList.contains('open'));
+});
+mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mob.classList.remove('open'); }));
+
+/* ══════════════ Reveal ══════════════ */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => ro.observe(el));
+
+/* ══════════════ Counters ══════════════ */
+function countUp(el, target, dur) {
+  const s = performance.now();
+  (function f(t){ const p=Math.min((t-s)/dur,1); el.textContent=Math.round((1-Math.pow(1-p,3))*target); if(p<1)requestAnimationFrame(f); else el.textContent=target; })(s);
+}
+const co = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('[data-count]').forEach(el => countUp(el, +el.dataset.count, 1200));
+      co.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.hero-stats').forEach(el => co.observe(el));
+
+/* ══════════════ Canvas — partículas reactivas al mouse ══════════════ */
+(function initCanvas() {
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes;
+  let mouse = { x: -9999, y: -9999 };
+  const MOUSE_RADIUS = 120;
+  const MOUSE_FORCE  = 0.018;
+
+  document.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+  document.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    /* Primera vez: crear nodos. En resize: solo ajustar límites, no reiniciar */
+    if (!nodes) initNodes();
+  }
+
+  function initNodes() {
+    /* Más partículas: una cada ~7000 px² en lugar de 14000 */
+    const count = Math.min(Math.floor((W * H) / 7000), 220);
+    nodes = Array.from({ length: count }, () => ({
+      x:   Math.random() * W,
+      y:   Math.random() * H,
+      ox:  0, oy: 0,          /* velocidad base */
+      vx:  (Math.random() - 0.5) * 0.5,
+      vy:  (Math.random() - 0.5) * 0.5,
+      r:   Math.random() * 2.2 + 0.8,
+      alpha: Math.random() * 0.4 + 0.25,
+    }));
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const nodeRGB = '124,58,237';
+    const lineRGB = '167,139,250';
+
+    nodes.forEach(n => {
+      /* Movimiento base */
+      n.x += n.vx;
+      n.y += n.vy;
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+
+      /* Repulsión suave del mouse */
+      const dx = n.x - mouse.x;
+      const dy = n.y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < MOUSE_RADIUS && dist > 0) {
+        const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS;
+        n.vx += (dx / dist) * force * MOUSE_FORCE * 8;
+        n.vy += (dy / dist) * force * MOUSE_FORCE * 8;
+      }
+      /* Amortiguación para que no se disparen */
+      n.vx *= 0.985;
+      n.vy *= 0.985;
+      /* Velocidad mínima para que siempre se muevan */
+      const speed = Math.sqrt(n.vx * n.vx + n.vy * n.vy);
+      if (speed < 0.18) { n.vx += (Math.random() - 0.5) * 0.08; n.vy += (Math.random() - 0.5) * 0.08; }
+
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${nodeRGB},${n.alpha})`;
+      ctx.fill();
+    });
+
+    /* Líneas entre nodos cercanos */
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx   = nodes[i].x - nodes[j].x;
+        const dy   = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 140) {
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `rgba(${lineRGB},${(1 - dist / 140) * 0.28})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+    }
+
+    /* Líneas extra desde el mouse a nodos cercanos */
+    nodes.forEach(n => {
+      const dx   = n.x - mouse.x;
+      const dy   = n.y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < MOUSE_RADIUS) {
+        ctx.beginPath();
+        ctx.moveTo(mouse.x, mouse.y);
+        ctx.lineTo(n.x, n.y);
+        ctx.strokeStyle = `rgba(124,58,237,${(1 - dist / MOUSE_RADIUS) * 0.45})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  draw();
+})();
+
+/* ══════════════ Form — seguro ══════════════ */
+(function initForm() {
+  const form = document.getElementById('contactForm');
+  const fst  = document.getElementById('form-status');
+  if (!form) return;
+
+  /* ── Helpers de sanitización ── */
+  function stripHTML(str) {
+    return String(str).replace(/</g, '&lt;').replace(/>/g, '&gt;').trim();
+  }
+  function isValidEmail(email) {
+    return /^[^\s@<>"]{1,64}@[^\s@<>"]{1,255}\.[a-zA-Z]{2,}$/.test(email);
+  }
+  function showStatus(type, msg) {
+    fst.setAttribute('class', type);
+    fst.textContent = msg;
+  }
+
+  /* ── Rate limiting: máx 3 envíos por sesión cada 10 min ── */
+  const RL_KEY = 'cf_ts';
+  const RL_MAX = 3;
+  const RL_WIN = 10 * 60 * 1000;
+  function checkRateLimit() {
+    try {
+      const raw  = sessionStorage.getItem(RL_KEY);
+      const list = raw ? JSON.parse(raw) : [];
+      const now  = Date.now();
+      const recent = list.filter(t => now - t < RL_WIN);
+      if (recent.length >= RL_MAX) return false;
+      recent.push(now);
+      sessionStorage.setItem(RL_KEY, JSON.stringify(recent));
+      return true;
+    } catch { return true; }
+  }
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    /* Honeypot — si el campo trampa tiene contenido, es un bot */
+    if (form.elements['website_url'] && form.elements['website_url'].value !== '') return;
+
+    /* Rate limit */
+    if (!checkRateLimit()) {
+      showStatus('error', lang === 'es'
+        ? 'Demasiados intentos. Espera unos minutos.'
+        : 'Too many attempts. Please wait a few minutes.');
+      return;
+    }
+
+    /* Validación y sanitización de campos */
+    const nameVal    = stripHTML(form.elements['name'].value);
+    const emailVal   = form.elements['email'].value.trim().toLowerCase();
+    const subjectVal = stripHTML(form.elements['subject'].value);
+    const msgVal     = stripHTML(form.elements['message'].value);
+
+    if (nameVal.length < 2) {
+      showStatus('error', lang === 'es' ? 'El nombre es demasiado corto.' : 'Name is too short.');
+      return;
+    }
+    if (!isValidEmail(emailVal)) {
+      showStatus('error', lang === 'es' ? 'El email no es válido.' : 'Invalid email address.');
+      return;
+    }
+    if (msgVal.length < 10) {
+      showStatus('error', lang === 'es' ? 'El mensaje es demasiado corto (mín. 10 caracteres).' : 'Message too short (min. 10 chars).');
+      return;
+    }
+
+    /* Envío con datos limpios */
+    const payload = new FormData();
+    payload.append('name',    nameVal);
+    payload.append('email',   emailVal);
+    payload.append('subject', subjectVal || '(sin asunto)');
+    payload.append('message', msgVal);
+
+    const btn  = form.querySelector('.form-submit');
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<span>' + (lang === 'es' ? 'Enviando…' : 'Sending…') + '</span><i class="fa-solid fa-spinner fa-spin"></i>';
+    btn.disabled = true;
+    fst.setAttribute('class', '');
+
+    try {
+      const r = await fetch(form.action, {
+        method: 'POST',
+        body: payload,
+        headers: { Accept: 'application/json' },
+      });
+      if (r.ok) {
+        showStatus('success', lang === 'es' ? '¡Mensaje enviado! Te responderé pronto.' : 'Message sent! I\'ll get back to you soon.');
+        form.reset();
+      } else {
+        throw new Error(r.status);
+      }
+    } catch {
+      showStatus('error', lang === 'es'
+        ? 'Error al enviar. Intenta escribirme directamente.'
+        : 'Send failed. Try reaching me directly.');
+    } finally {
+      btn.innerHTML = orig;
+      btn.disabled = false;
+    }
+  });
+})();
+</script>
+</body>
+</html>
